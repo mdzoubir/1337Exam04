@@ -1,19 +1,20 @@
 def list_intersection_finder(lists: list[list[int]]) -> list[int]:
-    mp = {}
-    result = []
-    le = len(lists)
-    for l in lists:
-        for i in set(l):
-            mp[i] = mp.get(i, 0) + 1
-            if mp[i] == le:
-                result.append(i)
-    return result
+    if not lists:
+        return []
 
-print(
-    list_intersection_finder([[1, 2, 3, 4], [2, 3, 4, 4, 5], [2, 3, 5]]),
-    list_intersection_finder([[1, 2, 3, 4], [2, 4, 6, 8], [4, 8, 12]]),
-    list_intersection_finder([[1, 1, 2, 3], [1, 2, 2, 3], [1, 2, 3, 3]]),
-    list_intersection_finder([[1, 2, 3], [4, 5, 6]]),
-    list_intersection_finder([[5]]),
-    list_intersection_finder([[1, 2, 3], []]),
-)
+    inter = set(lists[0])
+
+    for l in lists:
+        if not l:
+            return []
+        inter = inter.intersection(l)
+    return sorted(list(inter))
+
+
+print(list_intersection_finder([[1, 2, 3], [2, 3, 4], [2, 3, 5]]))  # Expected: [2, 3]
+print(list_intersection_finder( [[1, 2, 3, 4], [2, 4, 6, 8], [4, 8, 12]]))  # Expected: [4]
+print(list_intersection_finder([[1, 1, 2, 3], [1, 2, 2, 3], [1, 2, 3, 3]]))  # Expected: [1, 2, 3]
+print(list_intersection_finder([[1, 2, 3], [4, 5, 6]]))  # Expected: []
+print(list_intersection_finder([]))  # Expected: []
+print(list_intersection_finder([[1, 2, 3], []]))  # Expected: []
+print(list_intersection_finder([[5]]))  # Expected: [5]

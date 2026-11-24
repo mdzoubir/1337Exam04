@@ -7,6 +7,7 @@ def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
             if all[i] > all[j]:
                 all[i], all[j] = all[j], all[i]
     return all
+    # or sorted([i for li in lists for i in li])
 
 print(merge_sorted_lists([[1, 3, 5], [2, 4, 6]]))  # Expected: [1, 2, 3, 4, 5, 6]
 print(merge_sorted_lists([[1, 5, 9], [2, 3, 8], [4, 6, 7]]))  # Expected: [1, 2, 3, 4, 5, 6, 7, 8, 9]

@@ -1,23 +1,22 @@
 def package_dependency_resolver(packages: dict[str, list[str]]) -> list[str]:
-    res = []
+    res: list[str] = []
     while len(res) < len(packages):
         ready = []
         for pkg in packages:
             if pkg in res:
-                continue  # already installed
-
+                continue
             can_install = True
             for dep in packages[pkg]:
                 if dep not in res:
-                    can_install = False  # real dependency not installed yet
-
+                    can_install = False
             if can_install:
                 ready.append(pkg)
 
         if not ready:
-            return []  # stuck: circular dependency
+            return []
         res += sorted(ready)
     return res
+
 
 print(package_dependency_resolver({"app": ["database"], "database": ["driver"], "driver": []}))  # Expected: ["driver", "database", "app"]
 print(package_dependency_resolver({"A": [], "B": ["A"], "C": ["A", "B"]}))  # Expected: ["A", "B", "C"]
